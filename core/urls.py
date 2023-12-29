@@ -6,6 +6,7 @@ from knox import views as knox_views
 from rest_framework import routers
 from agendamentos_app.urls import urlpatterns as agendamentos_urls
 from pacientes_app.urls import urlpatterns as pacientes_urls
+from medicos_app.urls import urlpatterns as medicos_urls
 
 route = routers.DefaultRouter()
 
@@ -24,5 +25,6 @@ urlpatterns = [
     path('api/', include(route.urls)),
     path('api/', include(agendamentos_urls)),
     path('api/', include(pacientes_urls)),
+    path('api/', include(medicos_urls)),
 ]
 

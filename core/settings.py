@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     "profile_app",
     "agendamentos_app",
     "pacientes_app",
-    
+    "medicos_app",
     
 ]
 
