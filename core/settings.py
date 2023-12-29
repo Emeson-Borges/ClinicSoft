@@ -27,12 +27,26 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django.contrib.postgres",
     "rest_framework",
-    "core",
-    "profile_app",
     "corsheaders",
     "sslserver",
     "knox",
+    "core",
+    "profile_app",
+    "agendamentos_app",
+    "pacientes_app",
+    
+    
 ]
+
+
+# Para HTTP
+#USE_X_FORWARDED_HOST = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Para HTTPS
+#SSL_CERTIFICATE = "/path/to/your/certificate.crt"
+#SSL_KEY = "/path/to/your/private.key"
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
