@@ -38,6 +38,12 @@ INSTALLED_APPS = [
     
 ]
 
+# Tempo de expiração do token em minutos
+KNOX_TTL_MINUTES = 2
+
+# Tempo de expiração do token de atualização em minutos
+KNOX_TTL_UPDATE_MINUTES = 20160
+
 
 # Para HTTP
 #USE_X_FORWARDED_HOST = True
@@ -140,11 +146,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "pt-br"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
+
+USE_L10N = True
+
+USE_i18n = True
 
 USE_TZ = True
 

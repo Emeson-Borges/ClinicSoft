@@ -1,16 +1,33 @@
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.authtoken.serializers import AuthTokenSerializer
+from rest_framework.authtoken.models import Token
 from knox.auth import AuthToken
+from django.utils import timezone
+from datetime import timedelta
 from rest_framework import viewsets
+from django.conf import settings
+from rest_framework_simplejwt.tokens import RefreshToken
 
 @api_view(['POST'])
 def login_api(request):
     serializer = AuthTokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.validated_data['user']
-    _, token = AuthToken.objects.create(user)
+    # _, token = AuthToken.objects.create(user)
 
+    # Configurar o tempo de expiração do token
+    # token.expires = timezone.now() + timedelta(minutes=settings.KNOX_TTL_MINUTES)
+    # token.save()
+    # Ajuste para obter a data de expiração corretamente
+    # token_expires = token_instance.expires if hasattr(token_instance, 'expires') else None
+    # Obtenha a data de expiração do token Knox
+    # token_instance = Token.objects.get(key=token)
+    # token_expires = token_instance.expiry_datetime if hasattr(token_instance, 'expiry_datetime') else None
+    refresh = RefreshToken.for_user(user)
+    access_token = str(refresh.access_token)
+    token_expires = refresh.access_token.payload['exp']
+    
     profile_data = {}
     if hasattr(user, 'ProfileUser'):
         profile_data = {
@@ -23,9 +40,11 @@ def login_api(request):
             'id': user.id,
             'name': user.username,
             'email': user.email,
+            'token_expires': token_expires,
             **profile_data,
         },
-        'token': token
+        # 'token': token
+        'token': access_token,
     })
 
 
