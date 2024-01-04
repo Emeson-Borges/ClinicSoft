@@ -1,8 +1,9 @@
-from django.db import models
-from django.core.cache import cache
 import requests
-from .esp_medicas  import esp_medicas
+from django.core.cache import cache
 from django.core.exceptions import ValidationError
+from django.db import models
+
+from .esp_medicas import esp_medicas
 
 #Pegar os dados das Especializações Médicas Diretamente da API
 '''
@@ -27,16 +28,19 @@ def obter_opcoes_especializacao():
 '''
 
 def validate_crm_length(value):
-    if len(value) != 7:
+    if not value.isdigit() or len(value) != 7:
         raise ValidationError('O CRM deve ter exatamente 7 caracteres.')
 
+def validate_cbo_length(value):
+    if not value.isdigit() or len(value) != 6:
+        raise ValidationError('O CBO deve ter exatamente 6 caracteres.')
 class Medicos(models.Model):
      
     nome = models.CharField(max_length=255)
     crm = models.CharField(max_length=7, unique=True, validators=[validate_crm_length])
     telefone = models.CharField(max_length=15)
-    cbo = models.CharField(max_length=10)
-    especializacao = models.CharField(max_length=255, choices=esp_medicas)
+    cbo = models.CharField(max_length=6, validators=[validate_cbo_length])
+    especializacao = models.CharField(max_length=255) #, choices=esp_medicas
     setor_id = models.IntegerField()
 
     class Meta:

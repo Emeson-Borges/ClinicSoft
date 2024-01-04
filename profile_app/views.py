@@ -14,16 +14,7 @@ def login_api(request):
     serializer = AuthTokenSerializer(data=request.data)
     serializer.is_valid(raise_exception=True)
     user = serializer.validated_data['user']
-    # _, token = AuthToken.objects.create(user)
-
-    # Configurar o tempo de expiração do token
-    # token.expires = timezone.now() + timedelta(minutes=settings.KNOX_TTL_MINUTES)
-    # token.save()
-    # Ajuste para obter a data de expiração corretamente
-    # token_expires = token_instance.expires if hasattr(token_instance, 'expires') else None
-    # Obtenha a data de expiração do token Knox
-    # token_instance = Token.objects.get(key=token)
-    # token_expires = token_instance.expiry_datetime if hasattr(token_instance, 'expiry_datetime') else None
+    
     refresh = RefreshToken.for_user(user)
     access_token = str(refresh.access_token)
     token_expires = refresh.access_token.payload['exp']
