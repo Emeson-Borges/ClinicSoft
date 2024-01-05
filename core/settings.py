@@ -31,13 +31,18 @@ INSTALLED_APPS = [
     "sslserver",
     "knox",
     "core",
-    "profile_app",
+    "users",
     "agendamentos_app",
     "pacientes_app",
     "medicos_app",
     "notifications_app",
     
 ]
+
+# settings.py
+AUTH_USER_MODEL = 'users.CustomUser'
+# AUTHENTICATION_BACKENDS = ['users.backends.CPFBackend']
+
 
 # Tempo de expiração do token em minutos
 KNOX_TTL_MINUTES = 2
@@ -88,7 +93,6 @@ CORS_ALLOW_HEADERS = [
     'content-type',
 ]
 
-AUTHENTICATION_BACKENDS = ['profile_app.backends.UsernameCPFBackend']
 
 ROOT_URLCONF = "core.urls"
 
@@ -117,7 +121,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'clinicsoft',
+        'NAME': 'clinicsoft_true',
         'USER': 'postgres',
         'PASSWORD': '20221612',
         'HOST': 'localhost', 
