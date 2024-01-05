@@ -49,6 +49,29 @@ A ClinicSoft é uma solução inovadora que visa aprimorar a eficiência e a ges
 
 ---------------------------
 
+# Documentação das Views de Usuários  
+<div style="text-align: justify;">
+Este documento fornece uma visão geral das views relacionadas aos usuários implementadas no arquivo users/views.py do projeto Django. Essas views são parte de uma API construída com o framework Django REST Framework para gerenciar operações relacionadas a usuários, incluindo autenticação, listagem e criação.
+</div><br>
+
+## `UserViewSet`
+`UserViewSet` é uma classe que herda de `viewsets.ModelViewSet` e lida com operações CRUD (Create, Retrieve, Update, Delete) relacionadas aos usuários.
+
+## Atributos
+`queryset:` Representa o conjunto de objetos de usuário disponíveis para a view.
+`serializer_class:` Especifica a classe de serialização a ser usada para traduzir objetos de usuário para formatos JSON.
+
+## Métodos
+`login` (POST): Autentica um usuário com base no nome de usuário (username) e senha fornecidos. Retorna um token de acesso JWT se a autenticação for bem-sucedida.
+`user_list` (GET): Retorna uma lista de usuários cadastrados.
+`user_create` (POST): Cria um novo usuário com base nos dados fornecidos no corpo da requisição
+
+## Respostas
+`201 Created`: Retorna os dados do usuário recém-criado em caso de sucesso.
+`400 Bad Request`: Retorna erros de validação se os dados do usuário fornecidos não forem válidos.
+Este documento fornece uma visão geral completa das views implementadas no arquivo `users/views.py`. Consulte a[documentação oficial do Django REST Framework](https://www.django-rest-framework.org/)
+ para obter informações adicionais sobre as funcionalidades e conceitos utilizados.
+
 ## **Arquitetura do Sistema**
 **Diagramas Arquiteturais**
 
@@ -169,6 +192,9 @@ Content Cell | Content Cell  | Content Cell
 def fn():
     pass
 ```
+
+
+
 
 ---------------------------
 
