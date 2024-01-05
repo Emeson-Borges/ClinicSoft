@@ -6,6 +6,9 @@ from rest_framework import status
 from .serializers import UserSerializer
 from rest_framework.decorators import action
 from rest_framework_simplejwt.tokens import RefreshToken
+# from rest_framework_simplejwt.token_blacklist.models import RefreshToken as RefreshTokenModel
+from knox.auth import AuthToken
+
 from .models import CustomUser
 
 class UserViewSet(viewsets.ModelViewSet):
