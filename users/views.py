@@ -47,20 +47,11 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
     
     def user_create(self, request, *args, **kwargs):
-        if request.method == 'GET':
-            # Handle GET requests
-            # For example, you might want to retrieve a list of users
-            users = CustomUser.objects.all()
-            serializer = CustomUser(users, many=True)
-            return Response(serializer.data)
-        elif request.method == 'POST':
-            # Handle POST requests
-            # For example, you might want to create a new user
-            serializer = CustomUser(data=request.data)
+        if request.method == 'POST':
+            serializer = UserSerializer(data=request.data)
             if serializer.is_valid():
                 serializer.save()
-                return Response(serializer.data, status=201)
-            return Response(serializer.errors, status=400)
+                return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         else:
-            # Handle other HTTP methods if needed
-            return Response({'error': 'Method not allowed'}, status=405)
+            return Response({'error': 'Method not allowed'}, status=status.HTTP_405_METHOD_NOT_ALLOWED)
